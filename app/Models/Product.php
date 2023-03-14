@@ -12,7 +12,7 @@ class Product extends Model
     protected $table = 'products';
 
     protected $fillable = [
-        'name', 'stock', 'price', 'category_id'
+        'name', 'stock', 'price', 'category_id',
     ];
 
     public $timestamps = true;

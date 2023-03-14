@@ -8,7 +8,19 @@ use Livewire\Component;
 
 class ProductCrud extends Component
 {
-    public $data, $category, $category_id, $name, $stock, $price, $productId;
+    public $data;
+
+    public $category;
+
+    public $category_id;
+
+    public $name;
+
+    public $stock;
+
+    public $price;
+
+    public $productId;
 
     protected $rules = [
         'name' => 'required',
@@ -17,7 +29,8 @@ class ProductCrud extends Component
         'price' => 'required',
     ];
 
-    public function resetFields(){
+    public function resetFields()
+    {
         $this->name = '';
         $this->category_id = null;
         $this->stock = '';
@@ -28,6 +41,7 @@ class ProductCrud extends Component
     {
         $this->category = Category::all();
         $this->data = Product::all();
+
         return view('livewire.product-crud');
     }
 
@@ -39,21 +53,22 @@ class ProductCrud extends Component
                 'name' => $this->name,
                 'category_id' => $this->category_id,
                 'stock' => $this->stock,
-                'price' => $this->price
+                'price' => $this->price,
             ]);
-            session()->flash('success','Post Created Successfully!!');
+            session()->flash('success', 'Post Created Successfully!!');
             $this->resetFields();
         } catch (\Exception $ex) {
             dd($ex->getMessage());
-            session()->flash('error','Something goes wrong!!');
+            session()->flash('error', 'Something goes wrong!!');
         }
     }
 
-    public function editProduct($id){
+    public function editProduct($id)
+    {
         try {
             $data = Product::findOrFail($id);
-            if( !$data) {
-                session()->flash('error','Post not found');
+            if (! $data) {
+                session()->flash('error', 'Post not found');
             } else {
                 $this->productId = $data->id;
                 $this->name = $data->name;
@@ -62,9 +77,8 @@ class ProductCrud extends Component
                 $this->price = $data->price;
             }
         } catch (\Exception $ex) {
-            session()->flash('error','Something goes wrong!!');
+            session()->flash('error', 'Something goes wrong!!');
         }
-
     }
 
     public function updateProduct()
@@ -75,12 +89,12 @@ class ProductCrud extends Component
                 'name' => $this->name,
                 'category_id' => $this->category_id,
                 'stock' => $this->stock,
-                'price' => $this->price
+                'price' => $this->price,
             ]);
-            session()->flash('success','Post Updated Successfully!!');
+            session()->flash('success', 'Post Updated Successfully!!');
             $this->resetFields();
         } catch (\Exception $ex) {
-            session()->flash('success','Something goes wrong!!');
+            session()->flash('success', 'Something goes wrong!!');
         }
     }
 
@@ -91,11 +105,11 @@ class ProductCrud extends Component
 
     public function deleteProduct($id)
     {
-        try{
+        try {
             Product::find($id)->delete();
-            session()->flash('success',"Post Deleted Successfully!!");
-        }catch(\Exception $e){
-            session()->flash('error',"Something goes wrong!!");
+            session()->flash('success', 'Post Deleted Successfully!!');
+        } catch(\Exception $e) {
+            session()->flash('error', 'Something goes wrong!!');
         }
     }
 }

@@ -1,9 +1,7 @@
 <?php
 
 use App\Http\Livewire\CategoryCrud;
-use App\Http\Livewire\Product;
 use App\Http\Livewire\ProductCrud;
-use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,7 +22,7 @@ Route::get('/', function () {
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
-    'verified'
+    'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');

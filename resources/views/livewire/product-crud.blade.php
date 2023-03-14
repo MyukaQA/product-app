@@ -42,17 +42,17 @@
                     @enderror
                 </div>
                 @if ($this->productId == null)
-                    <button wire:click.prevent="storeProduct()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                    <x-btn-primary wire:click.prevent="storeProduct()">
                         Submit
-                    </button>
+                    </x-btn-primary>
                 @else
-                    <button wire:click.prevent="updateProduct()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                    <x-btn-primary wire:click.prevent="updateProduct()">
                         Update
-                    </button>
+                    </x-btn-primary>
                 @endif
-                <button wire:click.prevent="cancelProduct()" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">
+                <x-btn-warning wire:click.prevent="cancelProduct()">
                     Cancel
-                </button>
+                </x-btn-warning>
             </form>
         </x-card>
 
@@ -102,8 +102,8 @@
                         {{$item->price}}
                     </td>
                     <td class="px-6 py-4">
-                        <button wire:click="editProduct({{$item->id}})" class="btn btn-primary btn-sm">Edit</button>
-                        <button wire:click="deleteProduct({{$item->id}})" class="btn btn-danger btn-sm">Delete</button>
+                        <x-btn-warning wire:click="editProduct({{$item->id}})">Edit</x-btn-warning>
+                        <x-btn-danger wire:click="deleteProduct({{$item->id}})">Delete</x-btn-danger>
                     </td>
                 </tr>
                 @endforeach

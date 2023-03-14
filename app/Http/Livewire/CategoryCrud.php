@@ -7,13 +7,20 @@ use Livewire\Component;
 
 class CategoryCrud extends Component
 {
-    public $data, $category, $description, $categoryId;
+    public $data;
+
+    public $category;
+
+    public $description;
+
+    public $categoryId;
 
     protected $rules = [
         'category' => 'required',
     ];
 
-    public function resetFields(){
+    public function resetFields()
+    {
         $this->category = '';
         $this->description = '';
     }
@@ -21,6 +28,7 @@ class CategoryCrud extends Component
     public function render()
     {
         $this->data = Category::all();
+
         return view('livewire.category-crud');
     }
 
@@ -30,30 +38,30 @@ class CategoryCrud extends Component
         try {
             Category::create([
                 'category' => $this->category,
-                'description' => $this->description
+                'description' => $this->description,
             ]);
-            session()->flash('success','Post Created Successfully!!');
+            session()->flash('success', 'Post Created Successfully!!');
             $this->resetFields();
         } catch (\Exception $ex) {
             dd($ex->getMessage());
-            session()->flash('error','Something goes wrong!!');
+            session()->flash('error', 'Something goes wrong!!');
         }
     }
 
-    public function editCategory($id){
+    public function editCategory($id)
+    {
         try {
             $data = Category::findOrFail($id);
-            if( !$data) {
-                session()->flash('error','Post not found');
+            if (! $data) {
+                session()->flash('error', 'Post not found');
             } else {
                 $this->category = $data->category;
                 $this->categoryId = $data->id;
                 $this->description = $data->description;
             }
         } catch (\Exception $ex) {
-            session()->flash('error','Something goes wrong!!');
+            session()->flash('error', 'Something goes wrong!!');
         }
-
     }
 
     public function updateCategory()
@@ -62,12 +70,12 @@ class CategoryCrud extends Component
         try {
             Category::whereId($this->categoryId)->update([
                 'category' => $this->category,
-                'description' => $this->description
+                'description' => $this->description,
             ]);
-            session()->flash('success','Post Updated Successfully!!');
+            session()->flash('success', 'Post Updated Successfully!!');
             $this->resetFields();
         } catch (\Exception $ex) {
-            session()->flash('success','Something goes wrong!!');
+            session()->flash('success', 'Something goes wrong!!');
         }
     }
 
@@ -78,11 +86,11 @@ class CategoryCrud extends Component
 
     public function deleteCategory($id)
     {
-        try{
+        try {
             Category::find($id)->delete();
-            session()->flash('success',"Post Deleted Successfully!!");
-        }catch(\Exception $e){
-            session()->flash('error',"Something goes wrong!!");
+            session()->flash('success', 'Post Deleted Successfully!!');
+        } catch(\Exception $e) {
+            session()->flash('error', 'Something goes wrong!!');
         }
     }
 }
