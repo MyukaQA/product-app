@@ -1,66 +1,68 @@
 <div>
     <div class="grid grid-cols-4 gap-4">
-        <x-card>
-            <form>
-                <div class="mb-6">
-                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
-                        Barang</label>
-                    <input type="text" id="name" wire:model='name'
-                        class="@error('name') is-invalid @enderror bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="nama barang" required>
-                    @error('name')
-                        <span class="text-red-500">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="mb-6" wire:ignore.self>
-                    <label for="category_id"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori Barang</label>
-                    <select wire:model="category_id" id="category_id"
-                        class="@error('category_id') is-invalid @enderror bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="null" disabled>{{ __('Please select') }}</option>
-                        @foreach ($this->category as $item)
-                            <option value="{{ $item->id }}" wire:key="cateogry-{{ $item->id }}">
-                                {{ $item->category }}</option>
-                        @endforeach
-                    </select>
-                    @error('category_id')
-                        <span class="text-red-500">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="mb-6">
-                    <label for="stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock
-                        Barang</label>
-                    <input type="number" id="stock" wire:model='stock'
-                        class="@error('stock') is-invalid @enderror bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Stock barang" required>
-                    @error('stock')
-                        <span class="text-red-500">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="mb-6">
-                    <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga
-                        Barang</label>
-                    <input type="text" id="price" wire:model='price'
-                        class="@error('price') is-invalid @enderror bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Harga barang" required>
-                    @error('price')
-                        <span class="text-red-500">{{ $message }}</span>
-                    @enderror
-                </div>
-                @if ($this->productId == null)
-                    <x-btn-primary wire:click.prevent="storeProduct()">
-                        Submit
-                    </x-btn-primary>
-                @else
-                    <x-btn-primary wire:click.prevent="updateProduct()">
-                        Update
-                    </x-btn-primary>
-                @endif
-                <x-btn-warning wire:click.prevent="cancelProduct()">
-                    Cancel
-                </x-btn-warning>
-            </form>
-        </x-card>
+        <div class="flex flex-col">
+            <x-card>
+                <form>
+                    <div class="mb-6">
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                            Barang</label>
+                        <input type="text" id="name" wire:model='name'
+                            class="@error('name') is-invalid @enderror bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="nama barang" required>
+                        @error('name')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-6" wire:ignore.self>
+                        <label for="category_id"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori Barang</label>
+                        <select wire:model="category_id" id="category_id"
+                            class="@error('category_id') is-invalid @enderror bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="null" disabled>{{ __('Please select') }}</option>
+                            @foreach ($this->category as $item)
+                                <option value="{{ $item->id }}" wire:key="cateogry-{{ $item->id }}">
+                                    {{ $item->category }}</option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-6">
+                        <label for="stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock
+                            Barang</label>
+                        <input type="number" id="stock" wire:model='stock'
+                            class="@error('stock') is-invalid @enderror bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Stock barang" required>
+                        @error('stock')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-6">
+                        <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga
+                            Barang</label>
+                        <input type="text" id="price" wire:model='price'
+                            class="@error('price') is-invalid @enderror bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Harga barang" required>
+                        @error('price')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    @if ($this->productId == null)
+                        <x-btn-primary wire:click.prevent="storeProduct()">
+                            Submit
+                        </x-btn-primary>
+                    @else
+                        <x-btn-primary wire:click.prevent="updateProduct()">
+                            Update
+                        </x-btn-primary>
+                    @endif
+                    <x-btn-warning wire:click.prevent="cancelProduct()">
+                        Cancel
+                    </x-btn-warning>
+                </form>
+            </x-card>
+        </div>
 
         <div class="card col-span-3">
             <h3 class="py-4">List Barang</h3>

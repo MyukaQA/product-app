@@ -55,11 +55,11 @@ class ProductCrud extends Component
                 'stock' => $this->stock,
                 'price' => $this->price,
             ]);
-            session()->flash('success', 'Post Created Successfully!!');
+            $this->alert('success', 'Barang berhasil dibuat');
             $this->resetFields();
         } catch (\Exception $ex) {
             dd($ex->getMessage());
-            session()->flash('error', 'Something goes wrong!!');
+            $this->alert('error', 'ada kesalahan!.');
         }
     }
 
@@ -68,7 +68,7 @@ class ProductCrud extends Component
         try {
             $data = Product::findOrFail($id);
             if (! $data) {
-                session()->flash('error', 'Post not found');
+                $this->alert('error', 'Data tidak ditemukan!.');
             } else {
                 $this->productId = $data->id;
                 $this->name = $data->name;
@@ -77,7 +77,7 @@ class ProductCrud extends Component
                 $this->price = $data->price;
             }
         } catch (\Exception $ex) {
-            session()->flash('error', 'Something goes wrong!!');
+            $this->alert('error', 'ada kesalahan!.');
         }
     }
 
@@ -91,10 +91,10 @@ class ProductCrud extends Component
                 'stock' => $this->stock,
                 'price' => $this->price,
             ]);
-            session()->flash('success', 'Post Updated Successfully!!');
+            $this->alert('success', 'Barang berhasil diupdate');
             $this->resetFields();
         } catch (\Exception $ex) {
-            session()->flash('success', 'Something goes wrong!!');
+            $this->alert('error', 'ada kesalahan!.');
         }
     }
 
@@ -107,9 +107,9 @@ class ProductCrud extends Component
     {
         try {
             Product::find($id)->delete();
-            session()->flash('success', 'Post Deleted Successfully!!');
+            $this->alert('success', 'Barang berhasil dihapus');
         } catch(\Exception $e) {
-            session()->flash('error', 'Something goes wrong!!');
+            $this->alert('error', 'ada kesalahan!.');
         }
     }
 }

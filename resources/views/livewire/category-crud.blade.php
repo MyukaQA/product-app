@@ -1,41 +1,44 @@
 <div>
     <div class="grid grid-cols-4 gap-4">
-        <x-card>
-            <form>
-                <div class="mb-6">
-                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
-                        Kategori</label>
-                    <input type="text" id="category" wire:model='category'
-                        class="@error('category') is-invalid @enderror bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="nama kategori" required>
-                    @error('category')
-                        <span class="text-red-500">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="mb-6">
-                    <label for="description"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi Kategori</label>
-                    <textarea name="description" wire:model='description'
-                        class="@error('description') is-invalid @enderror bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        id="description" cols="30" rows="10" placeholder="Deskripsi Kategori"></textarea>
-                    @error('description')
-                        <span class="text-red-500">{{ $message }}</span>
-                    @enderror
-                </div>
-                @if ($this->categoryId == null)
-                    <x-btn-primary wire:click.prevent="storeCategory()">
-                        Submit
-                    </x-btn-primary>
-                @else
-                    <x-btn-primary wire:click.prevent="updateCategory()">
-                        Update
-                    </x-btn-primary>
-                @endif
-                <x-btn-warning wire:click.prevent="cancelCategory()">
-                    Cancel
-                </x-btn-warning>
-            </form>
-        </x-card>
+        <div class="flex flex-col">
+            <x-card>
+                <form>
+                    <div class="mb-6">
+                        <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                            Kategori</label>
+                        <input type="text" id="category" wire:model='category'
+                            class="@error('category') is-invalid @enderror bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="nama kategori" required>
+                        @error('category')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-6">
+                        <label for="description"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi
+                            Kategori</label>
+                        <textarea name="description" wire:model='description'
+                            class="@error('description') is-invalid @enderror bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            id="description" cols="30" rows="10" placeholder="Deskripsi Kategori"></textarea>
+                        @error('description')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    @if ($this->categoryId == null)
+                        <x-btn-primary wire:click.prevent="storeCategory()">
+                            Submit
+                        </x-btn-primary>
+                    @else
+                        <x-btn-primary wire:click.prevent="updateCategory()">
+                            Update
+                        </x-btn-primary>
+                    @endif
+                    <x-btn-warning wire:click.prevent="cancelCategory()">
+                        Cancel
+                    </x-btn-warning>
+                </form>
+            </x-card>
+        </div>
 
         <div class="card col-span-3">
 
@@ -133,7 +136,7 @@
                                             <ol>
                                                 @foreach ($item->products as $product)
                                                     <li>
-                                                        {{$product->name}} (Rp. {{$product->price}})
+                                                        {{ $product->name }} (Rp. {{ $product->price }})
                                                         @if ($product->stock != 0)
                                                             <x-badge-green>Stok Ready</x-badge-green>
                                                         @else

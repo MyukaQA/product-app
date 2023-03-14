@@ -3,10 +3,13 @@
 namespace App\Http\Livewire;
 
 use App\Models\Category;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class CategoryCrud extends Component
 {
+    use LivewireAlert;
+
     public $data;
 
     public $category;
@@ -40,11 +43,10 @@ class CategoryCrud extends Component
                 'category' => $this->category,
                 'description' => $this->description,
             ]);
-            session()->flash('success', 'Post Created Successfully!!');
+            $this->alert('success', 'Kategori berhasil dibuat');
             $this->resetFields();
         } catch (\Exception $ex) {
-            dd($ex->getMessage());
-            session()->flash('error', 'Something goes wrong!!');
+            $this->alert('error', 'ada kesalahan!.');
         }
     }
 
@@ -53,14 +55,14 @@ class CategoryCrud extends Component
         try {
             $data = Category::findOrFail($id);
             if (! $data) {
-                session()->flash('error', 'Post not found');
+                $this->alert('error', 'Data tidak ditemukan!.');
             } else {
                 $this->category = $data->category;
                 $this->categoryId = $data->id;
                 $this->description = $data->description;
             }
         } catch (\Exception $ex) {
-            session()->flash('error', 'Something goes wrong!!');
+            $this->alert('error', 'ada kesalahan!.');
         }
     }
 
@@ -72,10 +74,10 @@ class CategoryCrud extends Component
                 'category' => $this->category,
                 'description' => $this->description,
             ]);
-            session()->flash('success', 'Post Updated Successfully!!');
+            $this->alert('success', 'Kategori berhasil diupdate');
             $this->resetFields();
         } catch (\Exception $ex) {
-            session()->flash('success', 'Something goes wrong!!');
+            $this->alert('error', 'ada kesalahan!.');
         }
     }
 
@@ -87,10 +89,15 @@ class CategoryCrud extends Component
     public function deleteCategory($id)
     {
         try {
-            Category::find($id)->delete();
-            session()->flash('success', 'Post Deleted Successfully!!');
+            $data = Category::find($id);
+            if (count($data->products) > 0) {
+                $this->alert('error', 'Kategori ini tidak bisa di hapus, karena ada barang di kategori ini !.');
+            } else {
+                $data->delete();
+                $this->alert('success', 'Kategori berhasil dihapus');
+            }
         } catch(\Exception $e) {
-            session()->flash('error', 'Something goes wrong!!');
+            $this->alert('error', 'ada kesalahan!.');
         }
     }
 }
