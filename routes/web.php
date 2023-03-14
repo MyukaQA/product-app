@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\CategoryCrud;
 use App\Http\Livewire\ProductCrud;
+use App\Http\Livewire\SimiliarPercentageCrud;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,4 +31,5 @@ Route::middleware([
 
     Route::get('/product', ProductCrud::class)->name('product');
     Route::get('/category', CategoryCrud::class)->name('category');
+    Route::get('/similiar-percentage', SimiliarPercentageCrud::class)->name('similiar');
 });
