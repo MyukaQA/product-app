@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Livewire\CategoryCrud;
 use App\Http\Livewire\Product;
+use App\Http\Livewire\ProductCrud;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,5 +30,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/product', Product::class)->name('product');
+    Route::get('/product', ProductCrud::class)->name('product');
+    Route::get('/category', CategoryCrud::class)->name('category');
 });
