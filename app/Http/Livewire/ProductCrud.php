@@ -4,10 +4,13 @@ namespace App\Http\Livewire;
 
 use App\Models\Category;
 use App\Models\Product;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class ProductCrud extends Component
 {
+    use LivewireAlert;
+
     public $data;
 
     public $category;
@@ -58,7 +61,6 @@ class ProductCrud extends Component
             $this->alert('success', 'Barang berhasil dibuat');
             $this->resetFields();
         } catch (\Exception $ex) {
-            dd($ex->getMessage());
             $this->alert('error', 'ada kesalahan!.');
         }
     }
